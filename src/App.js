@@ -112,6 +112,7 @@ class App extends Component {
   render (){
     const {isSignedIn, imageUrl, route, boxes} = this.state;
     return(
+      <>
       <div className="App">
         <ParticlesBg type="cobweb"
                       num={141}
@@ -132,7 +133,12 @@ class App extends Component {
           )
         
         }
+
       </div>
+      <div class="footer">
+          <p>Footer</p>
+        </div>
+      </>
     );
   };
 };

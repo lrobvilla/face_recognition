@@ -1,11 +1,12 @@
 import React,{Component} from "react";
-// import './FaceRecognition.css';
+import '../../BadEntry.css';
 class SignIn extends Component {
     constructor(props){
         super(props);
         this.state = {
             signInEmail: '',
             signInPassword: '',
+            badSignInStatus: false
         }
     }
 
@@ -18,20 +19,36 @@ class SignIn extends Component {
     };
 
     onSubmitSignIn = () => {
+        let badRequest = false; //parkour
         fetch("http://localhost:3000/signin", {
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email: this.state.signInEmail,
-                password: this.state.signInPassword
-            })})
-            .then(response => response.json())
-            .then(user => {
-                if(user.id){  
-                    this.props.loadUser(user);
-                    this.props.onRouteChange('home');
-                }
-            });
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            email: this.state.signInEmail,
+            password: this.state.signInPassword
+        })})
+        .then(res => {
+            if(res.status === 400){
+                badRequest = true;
+                this.setState({badSignInStatus: badRequest});
+            }
+            return res;
+        })
+        .then(res =>
+            {
+            if(badRequest){
+                return false;
+            } else {
+                return res.json();
+            }  
+            }
+        )
+        .then(user => {
+            if(user.id){  
+                this.props.loadUser(user);
+                this.props.onRouteChange('home');
+            }
+        })
     };
 
     render(){
@@ -69,6 +86,9 @@ class SignIn extends Component {
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 
                             type="submit" 
                             value="Sign in"/>
+                        {this.state.badSignInStatus && (
+                            <p className="badEntryText">Incorrect email and password combination!</p>
+                        )}
                     </div>
                     <div className="lh-copy mt3">
                     <p onClick={() => onRouteChange('register')} href="#0" className="f6 link dim black db pointer">Register</p>

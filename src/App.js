@@ -112,7 +112,6 @@ class App extends Component {
   render (){
     const {isSignedIn, imageUrl, route, boxes} = this.state;
     return(
-      <>
       <div className="App">
         <ParticlesBg type="cobweb"
                       num={141}
@@ -120,7 +119,7 @@ class App extends Component {
                       />
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
         {route === 'home'?
-        <div>
+        <div className='floatingImage'>
           <Logo />
           <Rank name = {this.state.user.name} entries ={this.state.user.entries} />
           <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
@@ -131,14 +130,9 @@ class App extends Component {
           <SignIn loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
           : <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
           )
-        
         }
-
+        <p className='footer'>Made with &hearts; by Roberto Villalobos as a ZTM project 2023</p>
       </div>
-      <div class="footer">
-          <p>Footer</p>
-        </div>
-      </>
     );
   };
 };

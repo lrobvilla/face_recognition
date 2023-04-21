@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import LoadingCircle from "../Loading/LoadingCircle";
 // import './FaceRecognition.css';
 class Register extends Component{
     constructor(props){
@@ -6,7 +7,8 @@ class Register extends Component{
         this.state = {
             email: '',
             password: '',
-            name: ''
+            name: '',
+            requestInProcess: false
         }
     }
 
@@ -23,6 +25,7 @@ class Register extends Component{
     };
 
     onSubmitSignIn = () => {
+        this.setState({requestInProcess: true});
         fetch("https://face-recognition-node-server.onrender.com/register", {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
@@ -78,7 +81,12 @@ class Register extends Component{
                             />
                     </div>
                     </fieldset>
-                    <div className="">
+                    <div className="center0 pb3 pt0">
+                        {this.state.requestInProcess && (
+                            <LoadingCircle className='center0'></LoadingCircle>
+                        )}
+                    </div>
+                    <div className="center0">
                         <input
                             onClick={this.onSubmitSignIn}
                             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 

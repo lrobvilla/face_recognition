@@ -9,7 +9,7 @@ class SignIn extends Component {
             signInEmail: '',
             signInPassword: '',
             badSignInStatus: false,
-            goodRequestInProcess: false
+            requestInProcess: false
         }
     }
 
@@ -22,6 +22,7 @@ class SignIn extends Component {
     };
 
     onSubmitSignIn = () => {
+        this.setState({requestInProcess: true});
         let badRequest = false; //parkour
         fetch("https://face-recognition-node-server.onrender.com/signin", {
         method: 'post',
@@ -34,8 +35,6 @@ class SignIn extends Component {
             if(res.status === 400){
                 badRequest = true;
                 this.setState({badSignInStatus: badRequest});
-            } else {
-                this.setState({goodRequestInProcess: true});
             }
             return res;
         })
@@ -95,13 +94,12 @@ class SignIn extends Component {
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 
                             type="submit" 
                             value="Sign in"/>
-                        {this.state.badSignInStatus && !this.state.goodRequestInProcess && (
+                        {this.state.badSignInStatus && (
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}
-                        {!this.state.badSignInStatus && this.state.goodRequestInProcess && (
+                        {!this.state.badSignInStatus && this.state.requestInProcess && (
                             <LoadingCircle></LoadingCircle>
-                        )
-                        }
+                        )}
                     </div>
                     <div className="lh-copy mt3">
                     <p onClick={() => onRouteChange('register')} href="#0" className="f6 link dim black db pointer">Register</p>

@@ -89,7 +89,7 @@ class SignIn extends Component {
                             />
                     </div>
                     </fieldset>
-                    <div className="center0 pa3">
+                    <div className="center0 pa1">
                         {this.state.badSignInStatus && (
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}

@@ -89,12 +89,12 @@ class SignIn extends Component {
                             />
                     </div>
                     </fieldset>
-                    <div className="center0">
+                    <div className="center0 pa3">
                         {this.state.badSignInStatus && (
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}
                         {!this.state.badSignInStatus && this.state.requestInProcess && (
-                            <LoadingCircle className='center0 pa1'></LoadingCircle>
+                            <LoadingCircle className='center0'></LoadingCircle>
                         )}
                     </div>
                     <div className="center0">

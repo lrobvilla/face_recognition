@@ -1,13 +1,15 @@
 import React,{Component} from "react";
 import '../../BadEntry.css';
 import './SignIn.css';
+import LoadingCircle from '../Loading/LoadingCircle';
 class SignIn extends Component {
     constructor(props){
         super(props);
         this.state = {
             signInEmail: '',
             signInPassword: '',
-            badSignInStatus: false
+            badSignInStatus: false,
+            goodRequestInProcess: false
         }
     }
 
@@ -32,6 +34,8 @@ class SignIn extends Component {
             if(res.status === 400){
                 badRequest = true;
                 this.setState({badSignInStatus: badRequest});
+            } else {
+                this.setState({goodRequestInProcess: true});
             }
             return res;
         })
@@ -91,9 +95,13 @@ class SignIn extends Component {
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 
                             type="submit" 
                             value="Sign in"/>
-                        {this.state.badSignInStatus && (
+                        {this.state.badSignInStatus && !this.state.goodRequestInProcess && (
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}
+                        {!this.state.badSignInStatus && this.state.goodRequestInProcess && (
+                            <LoadingCircle></LoadingCircle>
+                        )
+                        }
                     </div>
                     <div className="lh-copy mt3">
                     <p onClick={() => onRouteChange('register')} href="#0" className="f6 link dim black db pointer">Register</p>

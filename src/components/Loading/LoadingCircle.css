@@ -5,6 +5,13 @@
   height: 50px;
 }
 
+.centered-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 100vh; */
+}
+
 .circle {
   height: 100%;
   right: 0px;

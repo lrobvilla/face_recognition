@@ -90,19 +90,19 @@ class SignIn extends Component {
                     </div>
                     </fieldset>
                     <div className="center0">
+                        {this.state.badSignInStatus && (
+                            <p className="badEntryText">Incorrect email and password combination!</p>
+                        )}
+                        {!this.state.badSignInStatus && this.state.requestInProcess && (
+                            <LoadingCircle className='center0 pa1'></LoadingCircle>
+                        )}
+                    </div>
+                    <div className="center0">
                         <input
                             onClick={this.onSubmitSignIn}
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 
                             type="submit" 
                             value="Sign in"/>
-                    </div>
-                    <div className="center0">
-                        {this.state.badSignInStatus && (
-                            <p className="badEntryText">Incorrect email and password combination!</p>
-                        )}
-                        {!this.state.badSignInStatus && this.state.requestInProcess && (
-                            <LoadingCircle className='center0'></LoadingCircle>
-                        )}
                     </div>
                     <div className="lh-copy mt3">
                     <p onClick={() => onRouteChange('register')} href="#0" className="f6 link dim black db pointer">Register</p>

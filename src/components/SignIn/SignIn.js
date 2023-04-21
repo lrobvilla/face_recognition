@@ -81,7 +81,7 @@ class SignIn extends Component {
                     <div className="mv3">
                         <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                         <input 
-                            className="b pa2 input-reset ba b--black-90 bg-transparent hover-bg-black hover-white w-100" 
+                            className="b ph2 pt2 input-reset ba b--black-90 bg-transparent hover-bg-black hover-white w-100" 
                             type="password" 
                             name="password"  
                             id="password"
@@ -89,7 +89,7 @@ class SignIn extends Component {
                             />
                     </div>
                     </fieldset>
-                    <div className="center0 pa1">
+                    <div className="center0 pb3">
                         {this.state.badSignInStatus && (
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}
@@ -97,7 +97,7 @@ class SignIn extends Component {
                             <LoadingCircle className='center0'></LoadingCircle>
                         )}
                     </div>
-                    <div className="center0 pa1">
+                    <div className="center0">
                         <input
                             onClick={this.onSubmitSignIn}
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 

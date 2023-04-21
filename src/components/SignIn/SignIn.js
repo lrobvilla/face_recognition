@@ -23,6 +23,7 @@ class SignIn extends Component {
 
     onSubmitSignIn = () => {
         this.setState({requestInProcess: true});
+        this.setState({badSignInStatus: false});
         let badRequest = false; //parkour
         fetch("https://face-recognition-node-server.onrender.com/signin", {
         method: 'post',
@@ -98,7 +99,7 @@ class SignIn extends Component {
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}
                         {!this.state.badSignInStatus && this.state.requestInProcess && (
-                            <LoadingCircle></LoadingCircle>
+                            <LoadingCircle className='center'></LoadingCircle>
                         )}
                     </div>
                     <div className="lh-copy mt3">

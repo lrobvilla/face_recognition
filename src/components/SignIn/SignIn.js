@@ -89,7 +89,7 @@ class SignIn extends Component {
                             />
                     </div>
                     </fieldset>
-                    <div className="">
+                    <div className="center0">
                         <input
                             onClick={this.onSubmitSignIn}
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 
@@ -99,7 +99,7 @@ class SignIn extends Component {
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}
                         {!this.state.badSignInStatus && this.state.requestInProcess && (
-                            <LoadingCircle className='center'></LoadingCircle>
+                            <LoadingCircle className='center0'></LoadingCircle>
                         )}
                     </div>
                     <div className="lh-copy mt3">

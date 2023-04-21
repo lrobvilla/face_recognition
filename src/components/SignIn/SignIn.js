@@ -97,7 +97,7 @@ class SignIn extends Component {
                             <LoadingCircle className='center0'></LoadingCircle>
                         )}
                     </div>
-                    <div className="center0">
+                    <div className="center0 pa1">
                         <input
                             onClick={this.onSubmitSignIn}
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 

@@ -95,6 +95,8 @@ class SignIn extends Component {
                             className="b ph3 pv2 input-reset ba b--black-90 b--black bg-transparent grow pointer f6 dib" 
                             type="submit" 
                             value="Sign in"/>
+                    </div>
+                    <div className="center0">
                         {this.state.badSignInStatus && (
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}

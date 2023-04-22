@@ -9,7 +9,10 @@ class SignIn extends Component {
             signInEmail: '',
             signInPassword: '',
             badSignInStatus: false,
-            requestInProcess: false
+            requestInProcess: false,
+            semicolonSomewhere: false,
+            invalidEmailFormat: false,
+            emptyField: false
         }
     }
 
@@ -21,40 +24,59 @@ class SignIn extends Component {
         this.setState({signInPassword: event.target.value});
     };
 
-    onSubmitSignIn = () => {
-        this.setState({requestInProcess: true});
-        this.setState({badSignInStatus: false});
-        let badRequest = false; //parkour
-        fetch("https://face-recognition-node-server.onrender.com/signin", {
-        method: 'post',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            email: this.state.signInEmail,
-            password: this.state.signInPassword
-        })})
-        .then(res => {
-            if(res.status === 400){
-                badRequest = true;
-                this.setState({badSignInStatus: badRequest});
-            }
-            return res;
-        })
-        .then(res =>
-            {
-            if(badRequest){
-                return false;
-            } else {
-                return res.json();
-            }  
-            }
-        )
-        .then(user => {
-            if(user.id){  
-                this.props.loadUser(user);
-                this.props.onRouteChange('home');
-            }
-        })
+    validateStrNotSemicolon = (str) => {
+        return !str.includes(';');  
     };
+
+    validateEmail = () =>{
+        /*eslint no-undef: 0*/
+        let regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        return regexEmail.test(this.state.signInEmail);
+    };
+
+    onSubmitSignIn = () => {
+        this.setState({requestInProcess: false, badSignInStatus: false, semicolonSomewhere: false, invalidEmailFormat: false, emptyField: false})
+        let badRequest = false;
+        if(!this.validateStrNotSemicolon(this.state.signInEmail) || !this.validateStrNotSemicolon(this.state.signInPassword)){
+            this.setState({semicolonSomewhere: true});
+        } else if (!this.state.signInEmail || !this.state.signInPassword){
+            this.setState({emptyField: true});
+        } else if (!this.validateEmail(this.state.signInEmail)){
+            this.setState({invalidEmailFormat: true});
+        } else {
+            this.setState({requestInProcess: true});
+            fetch("https://face-recognition-node-server.onrender.com/signin", {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: this.state.signInEmail,
+                password: this.state.signInPassword
+            })})
+            .then(res => {
+                if(res.status === 400){
+                    badRequest = true;
+                    this.setState({requestInProcess: false, badSignInStatus: badRequest});
+                }
+                return res;
+            })
+            .then(res =>
+                {
+                if(badRequest){
+                    return false;
+                } else {
+                    return res.json();
+                }  
+                }
+            )
+            .then(user => {
+                if(user.id){  
+                    this.props.loadUser(user);
+                    this.props.onRouteChange('home');
+                }
+            });
+        }
+    };
+
 
     render(){
         const {onRouteChange} = this.props;
@@ -78,7 +100,7 @@ class SignIn extends Component {
                             onChange={this.onEmailChange}
                         />
                     </div>
-                    <div className="mv3">
+                    <div className="mt3">
                         <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
                         <input 
                             className="b pa2 input-reset ba b--black-90 bg-transparent hover-bg-black hover-white w-100" 
@@ -90,10 +112,22 @@ class SignIn extends Component {
                     </div>
                     </fieldset>
                     <div className="center0 pb3 pt0">
+                        {   
+                            this.state.semicolonSomewhere && (
+                            <p className="badEntryText">Hello, my name is Íñigo Montoya, you have entered a semicolon, prepare to die!</p>
+                        )}
+                        {
+                            this.state.emptyField && (
+                            <p className="badEntryText">Fields cannot be empty!</p>
+                        )}
+                        {
+                            this.state.invalidEmailFormat && (
+                            <p className="badEntryText">Invalid email format!</p>
+                        )}
                         {this.state.badSignInStatus && (
                             <p className="badEntryText">Incorrect email and password combination!</p>
                         )}
-                        {!this.state.badSignInStatus && this.state.requestInProcess && (
+                        {this.state.requestInProcess && (
                             <LoadingCircle className='center0'></LoadingCircle>
                         )}
                     </div>

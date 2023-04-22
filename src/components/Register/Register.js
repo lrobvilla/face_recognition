@@ -8,7 +8,10 @@ class Register extends Component{
             email: '',
             password: '',
             name: '',
-            requestInProcess: false
+            requestInProcess: false,
+            semicolonSomewhere: false,
+            invalidEmailFormat: false,
+            emptyField: false
         }
     }
 
@@ -24,17 +27,35 @@ class Register extends Component{
         this.setState({password: event.target.value});
     };
 
+    validateStrNotSemicolon = (str) => {
+        return !str.includes(';');  
+    };
+
+    validateEmail = () =>{
+        /*eslint no-undef: 0*/
+        let regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+        return regexEmail.test(this.state.email);
+    };
+
     onSubmitSignIn = () => {
-        this.setState({requestInProcess: true});
-        fetch("https://face-recognition-node-server.onrender.com/register", {
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-                name: this.state.name
+        this.setState({requestInProcess: false, badSignInStatus: false, semicolonSomewhere: false, invalidEmailFormat: false, emptyField: false})
+        if(!this.validateStrNotSemicolon(this.state.name) || !this.validateStrNotSemicolon(this.state.email) || !this.validateStrNotSemicolon(this.state.password)){
+            this.setState({semicolonSomewhere: true});
+        } else if (!this.state.name || !this.state.email || !this.state.password){
+            this.setState({emptyField: true});
+        } else if (!this.validateEmail(this.state.email)){
+            this.setState({invalidEmailFormat: true});
+        } else {
+            this.setState({requestInProcess: true});
+            fetch("https://face-recognition-node-server.onrender.com/register", {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password,
+                    name: this.state.name
+                })
             })
-        })
             .then(response => response.json())
             .then(user => {
                 if(user.id){
@@ -42,7 +63,7 @@ class Register extends Component{
                     this.props.onRouteChange('home');
                 }
             });
-        
+        };
     };
 
     render(){
@@ -82,6 +103,21 @@ class Register extends Component{
                     </div>
                     </fieldset>
                     <div className="center0 pb3 pt0">
+                        {   
+                            this.state.semicolonSomewhere && (
+                            <p className="badEntryText">Hello, my name is Íñigo Montoya, you have entered a semicolon, prepare to die!</p>
+                        )}
+                        {
+                            this.state.emptyField && (
+                            <p className="badEntryText">Fields cannot be empty!</p>
+                        )}
+                        {
+                            this.state.invalidEmailFormat && (
+                            <p className="badEntryText">Invalid email format!</p>
+                        )}
+                        {this.state.badSignInStatus && (
+                            <p className="badEntryText">Incorrect email and password combination!</p>
+                        )}
                         {this.state.requestInProcess && (
                             <LoadingCircle className='center0'></LoadingCircle>
                         )}

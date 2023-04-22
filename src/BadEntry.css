@@ -2,9 +2,9 @@
     color: rgba(255, 0, 0, 0.999);
     animation: shake 1s cubic-bezier(.28, .07, .09, .28) both;
     animation-duration: 0.7s;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 8px;
-    font-size: 0.89em;
+    background-color: rgba(0, 0, 0, 0.88);
+    border-radius: 5px;
+    font-size: 1em;
     /* border-color: black; */
 }
 

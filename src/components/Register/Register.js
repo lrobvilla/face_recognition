@@ -115,9 +115,6 @@ class Register extends Component{
                             this.state.invalidEmailFormat && (
                             <p className="badEntryText">Invalid email format!</p>
                         )}
-                        {this.state.badSignInStatus && (
-                            <p className="badEntryText">Incorrect email and password combination!</p>
-                        )}
                         {this.state.requestInProcess && (
                             <LoadingCircle className='center0'></LoadingCircle>
                         )}

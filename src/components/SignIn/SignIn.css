@@ -1,5 +1,6 @@
 .explanationText{
     text-align: center;
+    font-weight: bold;
     margin-top: auto;
     margin-bottom: auto;
     display: inline-block;
@@ -7,6 +8,7 @@
     color: aliceblue;
     background-color: rgba(0,0,0,0.6);
     box-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    border-radius: 5px;
 }
 
 .center0{

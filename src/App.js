@@ -131,7 +131,7 @@ class App extends Component {
           : <Register loadUser = {this.loadUser} onRouteChange = {this.onRouteChange}/>
           )
         }
-        <p className='footer'>Made with &hearts; by Roberto Villalobos as a ZTM project 2023</p>
+        <p className='footer'>Made with &hearts; by Roberto Villalobos, 2023</p>
       </div>
     );
   };

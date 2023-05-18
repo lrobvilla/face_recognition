@@ -87,7 +87,7 @@ class SignIn extends Component {
                     {`This page will detect faces in your pictures, just register or sign in :)`}
                 </p>
                 <p className="explanationTextSignInAdd">
-                    (We will not be sending you emails, also you can enter anything that looks remotely close to an email while at registry... just imagine the joy of pretending to be your favorite Star Wars alien while you submit an image for face recognition)
+                    (We will not be sending you emails, also you can enter anything that looks remotely close to an email while at registry).
                 </p>
             </div>
         <article className="br2 ba b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">

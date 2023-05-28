@@ -5,8 +5,8 @@ This is a simple single-page web app written in React. It connects to the Clarif
 ### **Important:**
 This app was written as part of a project for a web development course. I have introduced several modifications to the "original" code such as:
 
-- Input validation of the login and input fields before sending the data to the REST API (this can be improved, need to account for every possible type of SQL injection attack).
-- A loading spinning wheel that serves to indicate the user that the browser is waiting for the server response.
+- Input validation of the register and log in fields before sending the data to the REST API (this can be improved, need to account for every possible type of SQL injection attack).
+- A loading spinning wheel to indicate the user that the browser is waiting for the server response.
 - Wiggling invalid input format error messages at register and log in.
 
 Lastly, there are several modifications that can be undertaken to make this app more functional, to name a few:

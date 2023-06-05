@@ -11,5 +11,5 @@ This app was written as part of a project for a web development course. I have i
 
 Lastly, there are several modifications that can be undertaken to make this app more functional, to name a few:
 
-- Finding a way to add a "drag and drop" functionality to the URL entry field, so that the user can submit his own photos from his or her computer.
+- Finding a way to add a "drag and drop" functionality to the URL entry field, so that the user can submit his or her own photos as files.
 - Adding a "detected photos" history for every user, instead of the current version that only registers the number of detected photos by the user.
